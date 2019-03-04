@@ -36,17 +36,18 @@ class Song
 
   def self.find_by_name(song_name)
   #  binding.pry
-  match = nil
-    self.all.each do |songs|
+  match = false
+    Song.all.each do |song|
       #binding.pry
-      songs.name == song_name ? match = songs : nil
+      song.name == song_name ? match = song : nil
     end
     match
   end
 
 
   def self.find_or_create_by_name(name)
-    self.find_by_name(name) || self.create_by_name(name)
+    # binding.pry
+    Song.find_by_name(name) || Song.create_by_name(name)
 #    song = self.find_by_name(name)
 #    if song == nil
 #      self.create_by_name(name)
@@ -66,7 +67,7 @@ class Song
     artist_name = filename.split(/\ -/)[0]
     name = filename.split(/\- |(.mp3)/)[1]
 
-    song = self.new_by_name(name)
+    song = Song.new_by_name(name)
     song.artist_name = artist_name
     song
   end
@@ -75,13 +76,13 @@ class Song
     artist_name = filename.split(/\ -/)[0]
     name = filename.split(/\- |(.mp3)/)[1]
 
-    song = self.create_by_name(name)
+    song = Song.create_by_name(name)
     song.artist_name = artist_name
     song
   end
 
   def self.destroy_all
-    self.all.clear
+    Song.all.clear
   end
 
 
